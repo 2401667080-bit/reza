@@ -10,9 +10,15 @@
     --muted: #7a7468;
   }
 
+  html{
+    width:100%;
+    overflow-x:hidden;
+  }
   *{box-sizing:border-box;}
   body{
     margin:0;
+    width:100%;
+    overflow-x:hidden;
     background:var(--bg);
     font-family:'Tajawal', sans-serif;
     color:var(--ink);
@@ -43,10 +49,34 @@
     margin:0 auto;
   }
   .cover img.logo{
+    position:relative;
+    z-index:2;
     width:150px;
-    height:auto;
+    height:150px;
+    object-fit:cover;
+    border-radius:50%;
     margin-bottom:18px;
     filter:drop-shadow(0 4px 18px rgba(201,164,92,0.35));
+  }
+
+  /* ===== Animated golden glow behind the logo ===== */
+  .logo-glow{
+    position:absolute;
+    top:-30px;
+    left:50%;
+    transform:translateX(-50%);
+    width:230px;
+    height:230px;
+    z-index:1;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(201,164,92,0.55) 0%, rgba(201,164,92,0.25) 35%, rgba(201,164,92,0) 70%);
+    filter:blur(6px);
+    animation:glowPulse 3.6s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes glowPulse{
+    0%, 100%{ transform:translateX(-50%) scale(0.92); opacity:0.65; }
+    50%{ transform:translateX(-50%) scale(1.12); opacity:1; }
   }
   .cover h1{
     font-size:30px;
@@ -72,6 +102,7 @@
   /* ===== Container ===== */
   .wrap{
     max-width:680px;
+    width:100%;
     margin:-28px auto 0;
     padding:0 16px;
     position:relative;
@@ -288,10 +319,71 @@
     margin-top:18px;
   }
 
+  /* ===== Welcome splash message ===== */
+  .welcome-overlay{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(ellipse at 50% 40%, #1c1c1c 0%, #050505 80%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:500;
+    opacity:1;
+    animation:welcomeFade 3.2s ease forwards;
+  }
+  .welcome-box{
+    text-align:center;
+    color:#f3ead8;
+    padding:30px;
+    animation:welcomeBoxIn .7s ease;
+  }
+  .welcome-icon{
+    width:54px;
+    height:54px;
+    margin:0 auto 14px;
+  }
+  .welcome-icon svg{width:100%; height:100%;}
+  .welcome-box h2{
+    font-size:24px;
+    font-weight:900;
+    color:#f3ead8;
+    margin:0 0 8px;
+  }
+  .welcome-box p{
+    font-size:14px;
+    color:var(--gold-light);
+    margin:0;
+    letter-spacing:1px;
+  }
+  @keyframes welcomeBoxIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes welcomeFade{
+    0%{opacity:1; visibility:visible;}
+    75%{opacity:1; visibility:visible;}
+    100%{opacity:0; visibility:hidden; pointer-events:none;}
+  }
+
   @media(max-width:520px){
     .cover h1{font-size:24px;}
     .card{padding:20px 18px;}
     .choice-row{flex-direction:column; gap:10px;}
+  }
+
+  @media(max-width:380px){
+    .cover{padding:54px 14px 46px;}
+    .cover h1{font-size:20px;}
+    .cover .sub{font-size:13px; letter-spacing:1.5px;}
+    .cover img.logo,
+    .logo-glow{width:110px; height:110px;}
+    .logo-glow{top:-18px;}
+    .wrap{padding:0 10px;}
+    .card{padding:16px 14px;}
+    .section-card h2{font-size:16px;}
+    .field label{font-size:14px;}
+    .submit-btn{width:100%; padding:12px 0;}
+    .welcome-box h2{font-size:20px;}
   }
 
   /* ===== Progress bar ===== */

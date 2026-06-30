@@ -2,7 +2,15 @@
      ضع هنا رابط Google Apps Script Web App بعد نشره (ينتهي بـ /exec)
      راجع تعليمات الربط في الشرح المرفق مع الملف
   ===================================================================== */
-  const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvh0iEf4NuWAstS1knVviab81X931U2GQeuiJFmQSoHQqmUJVKNuTf1eAfEo4NyKDH/exec";
+
+  /* ---------- 0) إخفاء رسالة الترحيب بعد ظهورها لثوانٍ ---------- */
+  const welcomeOverlay = document.getElementById('welcomeOverlay');
+  if (welcomeOverlay) {
+    setTimeout(() => {
+      welcomeOverlay.style.display = 'none';
+    }, 3300);
+  }
 
   /* ---------- عناصر عامة ---------- */
   const statusEl   = document.getElementById('statusMsg');
